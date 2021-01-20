@@ -1,3 +1,3 @@
 package com.github.eliascoelho911.rnc.exception
 
-class UnknownCharException(unknownChar: String) : RuntimeException("'$unknownChar' is unknown")
+class UnknownCharException(unknownChar: String) : RomanNumeralInvalid("'$unknownChar' is unknown")

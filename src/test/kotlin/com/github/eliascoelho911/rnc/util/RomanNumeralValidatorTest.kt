@@ -1,9 +1,6 @@
 package com.github.eliascoelho911.rnc.util
 
-import com.github.eliascoelho911.rnc.exception.ContainsSpaceException
-import com.github.eliascoelho911.rnc.exception.FourOrPlusValuesConsecutiveException
-import com.github.eliascoelho911.rnc.exception.UnknownCharException
-import com.github.eliascoelho911.rnc.exception.ValueIsBlankException
+import com.github.eliascoelho911.rnc.exception.*
 import org.junit.Test
 
 class RomanNumeralValidatorTest {
@@ -22,11 +19,6 @@ class RomanNumeralValidatorTest {
         validate("XXXS")
     }
 
-    @Test
-    fun `valid if value not contains unknown char`() {
-        validate("XXX")
-    }
-
     @Test(expected = ValueIsBlankException::class)
     fun `not valid if value is blank`() {
         validate("")
@@ -43,8 +35,28 @@ class RomanNumeralValidatorTest {
     }
 
     @Test
-    fun `valid if value not contains space`() {
-        validate("XXX")
+    fun `Approve when 'I' is on left of 'V'`() {
+        validate("IV")
+    }
+
+    @Test(expected = RomanNumeralInvalid::class)
+    fun `Do not approve when 'I' is on right of 'V' with two char`() {
+        validate("VI")
+    }
+
+    @Test(expected = RomanNumeralInvalid::class)
+    fun `Do not approve when 'I' is on right of 'V' with three or more char`() {
+        validate("XXI")
+    }
+
+    @Test(expected = RomanNumeralInvalid::class)
+    fun `Do not approve when 'I' is not close to 'X' or 'V'`() {
+        validate("DIC")
+    }
+
+    @Test(expected = RomanNumeralInvalid::class)
+    fun `Do not approve when 'X' is not close to 'X' or 'V'`() {
+        validate("DIC")
     }
 
     private fun validate(value: String) {
