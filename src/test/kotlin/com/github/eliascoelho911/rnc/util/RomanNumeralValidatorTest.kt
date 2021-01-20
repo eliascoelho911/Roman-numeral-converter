@@ -1,8 +1,8 @@
 package com.github.eliascoelho911.rnc.util
 
 import com.github.eliascoelho911.rnc.exception.ContainsSpaceException
-import com.github.eliascoelho911.rnc.exception.ContainsUnknownCharException
 import com.github.eliascoelho911.rnc.exception.FourOrPlusValuesConsecutiveException
+import com.github.eliascoelho911.rnc.exception.UnknownCharException
 import com.github.eliascoelho911.rnc.exception.ValueIsBlankException
 import org.junit.Test
 
@@ -17,7 +17,7 @@ class RomanNumeralValidatorTest {
         validate("LXXX")
     }
 
-    @Test(expected = ContainsUnknownCharException::class)
+    @Test(expected = UnknownCharException::class)
     fun `not valid if value contains unknown char`() {
         validate("XXXS")
     }
@@ -48,6 +48,6 @@ class RomanNumeralValidatorTest {
     }
 
     private fun validate(value: String) {
-        RomanNumeralValidator(value).validate()
+        RomanNumeralValidator().validate(value)
     }
 }
