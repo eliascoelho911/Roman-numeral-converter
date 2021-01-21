@@ -3,61 +3,31 @@ package com.github.eliascoelho911.rnc.util
 import com.github.eliascoelho911.rnc.exception.*
 
 open class RomanNumeralValidator {
-    private val validChars = listOf("I", "V", "X", "L", "C", "D", "M")
+    val validChars = listOf("I", "V", "X", "L", "C", "D", "M")
 
     fun validate(romanNumeral: String) {
         failureIfIsBlank(romanNumeral)
         failureIfContainsSpace(romanNumeral)
         failureIfContainsFourOrPlusConsecutiveChars(romanNumeral)
         failureIfContainsUnknownChar(romanNumeral)
-        //IV
-        failureWhenNeighborIsNot(romanNumeral, "I", rightNeighbors = listOf("V", "X", "I"))
-        failureWhenNeighborIsNot(romanNumeral, "X", rightNeighbors = listOf("L", "C", "X"))
-        failureWhenNeighborIsNot(romanNumeral, "C", rightNeighbors = listOf("D", "M", "C"))
+        failureIfAllSubtractionsIsValid(romanNumeral)
     }
 
-    private fun failureWhenNeighborIsNot(
-        romanNumeral: String,
-        reference: String,
-        leftNeighbors: List<String>? = null,
-        rightNeighbors: List<String>? = null
-    ) {
+    private fun failureIfAllSubtractionsIsValid(romanNumeral: String) {
         romanNumeral.forEachIndexed { index, char ->
-            if (char.toString() == reference) {
-                val neighborsDontAreValid =
-                    !(validateLeftNeighbor(leftNeighbors, romanNumeral, index) &&
-                            validateRightNeighbor(rightNeighbors, romanNumeral, index))
+            val s = char.toString()
 
-                if (neighborsDontAreValid)
-                    throw RomanNumeralInvalid()
+            if (s == "I" || s == "X" || s == "C") {
+                val sIndex = validChars.indexOf(s)
+                val possibleNeighbors = validChars.subList(0, sIndex + 3)
+
+                val nextChar = romanNumeral.getOrNull(index + 1)
+                nextChar?.run {
+                    if (!possibleNeighbors.contains(this.toString()))
+                        throw SubtractionInvalid(romanNumeral)
+                }
             }
         }
-    }
-
-    private fun validateRightNeighbor(
-        rightNeighbors: List<String>?,
-        romanNumeral: String,
-        index: Int
-    ) = rightNeighbors?.run { haveCorrectNeighbors(romanNumeral, this, index, 1) } ?: true
-
-    private fun validateLeftNeighbor(
-        leftNeighbors: List<String>?,
-        romanNumeral: String,
-        index: Int
-    ) = leftNeighbors?.run { haveCorrectNeighbors(romanNumeral, this, index, -1) } ?: true
-
-    private fun haveCorrectNeighbors(
-        romanNumeral: String,
-        neighbors: List<String>,
-        referenceIndex: Int,
-        neighborsOffsetIndex: Int
-    ): Boolean {
-        val neighbor = findByIndex(romanNumeral, referenceIndex + neighborsOffsetIndex)
-        return neighbor?.run { neighbors.contains(neighbor) } ?: true
-    }
-
-    private fun findByIndex(romanNumeral: String, index: Int): String? {
-        return romanNumeral.getOrNull(index)?.toString()
     }
 
     private fun failureIfContainsSpace(romanNumeral: String) {

@@ -35,7 +35,5 @@ class RomanNumeralToDecimal(private val validator: RomanNumeralValidator = Roman
         }
     }
 
-    private fun isFirstChar(lastSymbol: String) = lastSymbol.isBlank()
-
     private fun findDecimalNumber(s: String) = conversionTable[s] ?: throw UnknownCharException(s)
 }
