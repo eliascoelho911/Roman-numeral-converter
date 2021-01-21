@@ -19,35 +19,35 @@ class RomanNumeralToDecimalTest {
 
     @Test
     fun `must convert one symbol correctly`() {
-        assertEquals(10.0, toConvert("X"))
+        assertEquals(10, toConvert("X"))
     }
 
     @Test
     fun `must convert several symbols adding`() {
-        assertEquals(25.0, toConvert("XXV"))
+        assertEquals(25, toConvert("XXV"))
     }
 
     @Test
     fun `must convert with one sum and one subtracting`() {
-        assertEquals(195.0, toConvert("CXCV"))
+        assertEquals(195, toConvert("CXCV"))
     }
 
     @Test
     fun `must convert with several sums and one subtracting`() {
-        assertEquals(196.0, toConvert("CXCVI"))
+        assertEquals(196, toConvert("CXCVI"))
     }
 
     @Test
     fun `must convert with several sums and several subtractions`() {
-        assertEquals(779.0, toConvert("DCCLXXIX"))
+        assertEquals(779, toConvert("DCCLXXIX"))
     }
 
     @Test
     fun `must convert several symbols subtracting`() {
-        assertEquals(9.0, toConvert("IX"))
+        assertEquals(9, toConvert("IX"))
     }
 
-    private fun toConvert(value: String): Double {
+    private fun toConvert(value: String): Int {
         val romanNumeralToDecimal = RomanNumeralToDecimal()
         return romanNumeralToDecimal.toConvert(value)
     }
