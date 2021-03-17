@@ -3,11 +3,11 @@
 <dc:type>Dataset</dc:type>
 <dc:title>Trabalho de PFDA1</dc:title>
 <dc:creator>Elias Costa Coelho</dc:creator>
-<dc:publisher>Elias Costa Coelho</dc:publisher>
+<dc:publisher>https://www.github.com</dc:publisher>
 <dc:created>2021-01-21</dc:created>
 <dc:modified>2021-03-13</dc:modified>
 <dc:source>https://github.com/eliascoelho911/Roman-numeral-converter</dc:source>
-<dc:license>Constituição de 1988, Art 5º; Lei 12.527 de 2011; Decreto 7.724 de 2012</dc:license>
+<dc:license>MIT License</dc:license>
 <dc:provenance>https://github.com/eliascoelho911/Roman-numeral-converter/archive/master.zip</dc:provenance>
 </dc:dcterms>
 </xml>
